@@ -1,8 +1,5 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
-import request from "supertest";
-import { app } from "../app";
-import supertest from "supertest";
 import jwt from "jsonwebtoken";
 declare global {
   var signin: () => string[];
