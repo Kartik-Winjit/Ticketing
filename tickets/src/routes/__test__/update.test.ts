@@ -103,3 +103,28 @@ it("publishes an event", async () => {
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
+
+it("rejects update if ticket is reserved", async () => {
+  const cookie = global.signin();
+  const res = await request(app)
+    .post(`/api/tickets`)
+    .set("Cookie", cookie)
+    .send({
+      title: "asdfg",
+      price: 20,
+    });
+
+  const ticket = await Ticket.findById(res.body.id);
+
+  ticket!.set({ orderId: new mongoose.Types.ObjectId().toHexString() });
+
+  await ticket!.save();
+  await request(app)
+    .put(`/api/tickets/${res.body.id}`)
+    .set("Cookie", cookie)
+    .send({
+      title: "rtyu",
+      price: 10,
+    })
+    .expect(400);
+});

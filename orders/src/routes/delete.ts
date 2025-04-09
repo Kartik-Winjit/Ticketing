@@ -8,7 +8,7 @@ import {
 import { body } from "express-validator";
 import { Order } from "../models/order";
 import { OrderStatus } from "@kgtix/common";
-import { OrderCancelledPublisher } from "../../events/publishers/order-cancelled-publisher";
+import { OrderCancelledPublisher } from "../events/publishers/order-cancelled-publisher";
 import { natsWrapper } from "../nats-wrapper";
 const router = express.Router();
 
@@ -32,6 +32,7 @@ router.delete(
       ticket: {
         id: order.ticket.id,
       },
+      version: order.version,
     });
     res.status(204).send(order);
   }

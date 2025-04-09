@@ -2,15 +2,15 @@ import express, { Request, Response } from "express";
 import {
   BadRequestError,
   NotFoundError,
-  OrderStatus,
   requireauth,
   validateRequest,
 } from "@kgtix/common";
+import { OrderStatus } from "@kgtix/common";
 import { body } from "express-validator";
 import mongoose from "mongoose";
 import { Ticket } from "../models/ticket";
 import { Order } from "../models/order";
-import { OrderCreatedPublisher } from "../../events/publishers/order-created-publisher";
+import { OrderCreatedPublisher } from "../events/publishers/order-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
@@ -60,6 +60,7 @@ router.post(
         id: ticket.id,
         price: ticket.price,
       },
+      version: order.version,
     });
     res.status(201).send(order);
   }
