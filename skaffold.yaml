@@ -32,6 +32,22 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: kartikg1809/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    - image: kartikg1809/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
     - image: kartikg1809/orders
       context: orders
       docker:
