@@ -2,11 +2,14 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import request from "supertest";
 import { app } from "../app";
-import supertest from "supertest";
 import jwt from "jsonwebtoken";
+
 declare global {
   var signin: (id?: string) => string[];
 }
+
+jest.mock("../nats-wrapper");
+
 jest.mock("../nats-wrapper");
 
 let mongo: any;
@@ -36,8 +39,8 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signin = (id?: string) => {
-  const randomId = id || new mongoose.Types.ObjectId().toHexString();
+global.signin = () => {
+  const randomId = new mongoose.Types.ObjectId().toHexString();
 
   const payload = {
     id: randomId,
