@@ -18,27 +18,52 @@ const signin = () => {
     doRequest();
   };
   return (
-    <form onSubmit={onSubmit} className="container">
-      <h1>Sign In</h1>
-      <div className="form-group">
-        <label>Email Address</label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="form-control"
-        />
+    <form
+      onSubmit={onSubmit}
+      className="container mt-5"
+      style={{ maxWidth: "500px" }}
+    >
+      <div className="card shadow-sm">
+        <div className="card-body">
+          <h1 className="mb-4 text-center">Sign In</h1>
+
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-control"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="form-control"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          {errors && <div className="alert alert-danger">{errors}</div>}
+
+          <button type="submit" className="btn btn-primary w-100">
+            Sign In
+          </button>
+        </div>
       </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          className="form-control"
-        ></input>
-      </div>
-      {errors}
-      <button className="btn btn-primary">Sign In</button>
     </form>
   );
 };

@@ -32,15 +32,25 @@ const OrderShow = ({ order, currentUser }) => {
   }
 
   return (
-    <div>
-      {timeLeft} seconds left until order expires
-      <StripeCheckout
-        token={({ id }) => doRequest({ token: id })}
-        stripeKey="pk_test_51RCI0nPFsydBUc2pYE4sGinkhgx122wLCoPUWJINvtjFnQxaCTLOrj1LYH6Wc1LnZ90qp34tEU4umXOI1ffphv7300vQWmK6Ue"
-        amount={order.ticket.price * 100}
-        email={currentUser.email}
-      />
-      {errors}
+    <div className="container mt-5" style={{ maxWidth: "600px" }}>
+      <div className="card shadow-sm text-center">
+        <div className="card-body">
+          <h5 className="mb-3 text-danger fw-semibold">
+            {timeLeft} seconds left until order expires
+          </h5>
+
+          <div className="mb-3 d-flex justify-content-center">
+            <StripeCheckout
+              token={({ id }) => doRequest({ token: id })}
+              stripeKey="pk_test_51RCI0nPFsydBUc2pYE4sGinkhgx122wLCoPUWJINvtjFnQxaCTLOrj1LYH6Wc1LnZ90qp34tEU4umXOI1ffphv7300vQWmK6Ue"
+              amount={order.ticket.price * 100}
+              email={currentUser.email}
+            />
+          </div>
+
+          {errors && <div className="alert alert-danger mt-3">{errors}</div>}
+        </div>
+      </div>
     </div>
   );
 };

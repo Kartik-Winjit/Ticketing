@@ -15,7 +15,7 @@ const LandingPage = ({ currentUser, tickets }) => {
     );
   });
   return (
-    <div>
+    <div className="p-5">
       <h1>Tickets</h1>
       <table className="table table-striped table-bordered table-hover">
         <thead className="thead-dark">
@@ -32,8 +32,11 @@ const LandingPage = ({ currentUser, tickets }) => {
 };
 LandingPage.getInitialProps = async (context, client, currentUser) => {
   const { data } = await client.get("/api/tickets");
+  const availableTickets = data.filter(
+    (ticket) => ticket.orderId === undefined
+  );
 
-  return { tickets: data };
+  return { tickets: availableTickets };
 };
 
 export default LandingPage;

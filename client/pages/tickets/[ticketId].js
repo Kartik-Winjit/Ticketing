@@ -12,15 +12,19 @@ const TicketShow = ({ ticket }) => {
       Router.push("/orders/[orderId]", `/orders/${order.id}`),
   });
   return (
-    <div className="card">
-      <div className="card-body">
-        <h1 className="card-title">{ticket.title}</h1>
-        <h4 className="card-text">Price: {ticket.price}</h4>
-        <button onClick={() => doRequest()} className="btn btn-primary">
-          Purchase
-        </button>
+    <div className="container mt-5" style={{ maxWidth: "600px" }}>
+      <div className="card shadow-sm">
+        <div className="card-body">
+          <h1 className="card-title mb-3">{ticket.title}</h1>
+          <h4 className="card-text text-muted mb-4">Price: ${ticket.price}</h4>
+
+          <button onClick={() => doRequest()} className="btn btn-primary w-100">
+            Purchase
+          </button>
+
+          {errors && <div className="alert alert-danger mt-3">{errors}</div>}
+        </div>
       </div>
-      {errors}
     </div>
   );
 };
